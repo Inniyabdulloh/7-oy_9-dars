@@ -1,0 +1,64 @@
+{% extends 'dashboard/index.html' %}
+
+{% block content %}
+        <div class="col-lg-6 mt-xl-5">
+
+          <div class="card mt-xl-5">
+            <div class="card-body mt-xl-5">
+
+              <!-- Vertical Form -->
+              <form enctype="multipart/form-data" class="row g-3" method="post" action="{% url 'dashboard:staff-update' %}">
+                  {% csrf_token %}
+                <div class="col-12">
+                  <label for="inputNanme4" class="form-label">Nomi</label>
+                  <input name="name" type="text" class="form-control" id="inputNanme4" value="{{ staff.full_name }}">
+                </div>
+                <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Ma'lumot</label>
+                    <textarea name="bio" type="text" class="form-control" id="inputEmail4">{{ staff.bio }}</textarea>
+                </div>
+                  <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Kasb</label>
+                    <input name="speciality" type="text" class="form-control" id="inputEmail4" value="{{ staff.speciality }}">
+                </div>
+                <div class="col-12">
+                  <label for="inputPassword4" class="form-label">Rasm</label>
+                    <img src="{{ staff.image.url }}" alt="">
+                  <input name="image" type="file" class="form-control" id="inputPassword4">
+                </div>
+
+                  <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Twitter</label>
+                    <input name="twitter" type="text" class="form-control" id="inputEmail4" value="{{ staff.twitter }}">
+                </div>
+
+                  <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Facebook</label>
+                    <input name="Facebook" type="text" class="form-control" id="inputEmail4" value="{{ staff.facebook }}">
+                </div>
+
+                  <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Instagram</label>
+                    <input name="Instagram" type="text" class="form-control" id="inputEmail4" value="{{ staff.instagram }}">
+                </div>
+
+                  <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Linkedin</label>
+                    <input name="linkedin" type="text" class="form-control" id="inputEmail4" value="{{ staff.linkedin }}">
+                </div>
+
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                    <a class="btn btn-danger" href="{% url 'dashboard:home' %}">Cancel</a>
+                </div>
+
+
+
+              </form><!-- Vertical Form -->
+
+            </div>
+          </div>
+
+        </div>
+{% endblock %}

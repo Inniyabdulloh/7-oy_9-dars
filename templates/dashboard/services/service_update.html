@@ -1,0 +1,35 @@
+{% extends 'dashboard/index.html' %}
+
+{% block content %}
+        <div class="col-lg-6 mt-xl-5">
+
+          <div class="card mt-xl-5">
+            <div class="card-body mt-xl-5">
+
+              <!-- Vertical Form -->
+              <form enctype="multipart/form-data" class="row g-3" method="post" action="{% url 'dashboard:services-update' service.id %}">
+                  {% csrf_token %}
+                <div class="col-12">
+                  <label for="inputNanme4" class="form-label">Name</label>
+                  <input name="name" type="text" class="form-control" id="inputNanme4" value="{{ service.name }}">
+                </div>
+                <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Ma'lumot</label>
+                    <textarea name="description" type="text" class="form-control" id="inputEmail4" >{{ service.description }}</textarea>
+                </div>
+                <div class="col-12">
+                  <label for="inputPassword4" class="form-label">Rasm</label>
+                  <input name="icon" type="file" class="form-control" id="inputPassword4" >
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                    <a class="btn btn-danger" href="{% url 'dashboard:services-detail' service.id %}">Cancel</a>
+                </div>
+              </form><!-- Vertical Form -->
+
+            </div>
+          </div>
+
+        </div>
+{% endblock %}

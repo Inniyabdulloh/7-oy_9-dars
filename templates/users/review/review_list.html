@@ -1,0 +1,44 @@
+{% extends 'users/index.html' %}
+
+{% block content %}
+    <div class="card mt-xl-5">
+            <div class="card-body mt-xl-5">
+            
+
+                <a class="btn btn-success" href="{% url 'users:review-create' %}">Fikr qoldirish</a>
+
+
+              <!-- Default Table -->
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ism</th>
+                    <th scope="col">Kasb</th>
+                    <th scope="col">Fikr</th>
+                    <th scope="col">Yulduz</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for review in reviews %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'users:review-detail' review.id %}">{{ review.user.full_name }}</a></td>
+                    <td>{{ review.speciality }}</td>
+                    <td>{{ review.review | truncatechars:50}}</td>
+                    <td class="stars">
+                        {% for _ in review.stars %}
+                          <i class="bi bi-star-fill" style="color:goldenrod;"></i>
+                        {% endfor %}
+                      <td><a href="{% url 'users:review-update' review.id %}"><i class="bi bi-pencil-square"></i></a></td>
+                      <td><a href="{% url 'users:review-delete' review.id %}"><i class="bi bi-trash3"></i></a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+{% endblock %}

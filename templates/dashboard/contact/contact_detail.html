@@ -1,0 +1,36 @@
+{% extends 'dashboard/index.html' %}
+
+{% block content %}
+    <div class="col-lg-6 mt-xl-5">
+
+          <div class="card mt-xl-5">
+            <div class="card-body mt-xl-5">
+
+              <!-- Vertical Form -->
+
+                <div class="col-12">
+                  <label for="inputNanme4" class="form-label">Name</label>
+                  <input name="name" type="text" class="form-control" id="inputNanme4" value="{{ contact.name }}">
+                </div>
+                <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Email</label>
+                  <input name="email" type="email" class="form-control" id="inputEmail4" value="{{ contact.email }}">
+                </div>
+                <div class="col-12">
+                  <label for="inputPassword4" class="form-label">Subject</label>
+                  <input name="subject" type="text" class="form-control" id="inputPassword4" value="{{ contact.subject }}">
+                </div>
+                <div class="col-12">
+                  <label for="inputAddress" class="form-label">Message</label>
+                    <textarea name="message" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">{{ contact.message }}</textarea>
+                </div>
+                <div class="text-center mt-3">
+                    <a class="btn btn-danger" href="{% url 'users:contact-list' %}">Menu</a>
+                </div>
+
+
+            </div>
+          </div>
+
+        </div>
+{% endblock %}

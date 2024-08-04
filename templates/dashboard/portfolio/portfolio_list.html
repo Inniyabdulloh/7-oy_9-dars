@@ -1,0 +1,38 @@
+{% extends 'dashboard/index.html' %}
+
+{% block content %}
+    <div class="card mt-xl-5">
+            <div class="card-body mt-xl-5">
+            
+            <h4>Portfolio <a href="{% url 'dashboard:portfolio-create' %}"><i class="bi bi-plus-square"></i></a></h4>
+
+              <!-- Default Table -->
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Ma'lumot</th>
+                    <th scope="col">Rasm</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for portfolio in portfolios %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'dashboard:portfolio-detail' portfolio.id %}">{{ portfolio.name }}</a></td>
+                    <td><span>{{ portfolio.description }}</span></td>
+                    <td><img width="75" height="75" src="{{ portfolio.image.url }}" alt=""></td>
+
+                      <td><a href="{% url 'dashboard:portfolio-update' portfolio.id %}"><i class="bi bi-pencil-square"></i></a></td>
+                      <td><a href="{% url 'dashboard:portfolio-delete' portfolio.id %}"><i class="bi bi-trash3"></i></a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+{% endblock %}

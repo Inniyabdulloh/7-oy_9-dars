@@ -1,0 +1,33 @@
+{% extends 'dashboard/index.html' %}
+
+{% block content %}
+        <div class="col-lg-6 mt-xl-5">
+
+          <div class="card mt-xl-5">
+            <div class="card-body mt-xl-5">
+
+              <!-- Vertical Form -->
+
+                <div class="col-12">
+                  <label for="inputNanme4" class="form-label">Name</label>
+                  <input name="name" type="text" class="form-control" id="inputNanme4" value="{{ service.name }}">
+                </div>
+                <div class="col-12">
+                  <label for="inputEmail4" class="form-label mt-3">Ma'lumot</label>
+                    <textarea name="description" type="text" class="form-control" id="inputEmail4" >{{ service.description }}</textarea>
+                </div>
+                <div class="col-12 mt-3">
+
+                    <img src="{{ service.icon.url }}" alt="">
+                </div>
+
+                <div class="text-center mt-3">
+
+                    <a class="btn btn-danger" href="{% url 'dashboard:services-list' %}">Menu</a>
+                </div>
+
+            </div>
+          </div>
+
+        </div>
+{% endblock %}

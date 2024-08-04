@@ -1,0 +1,29 @@
+{% extends 'users/index.html' %}
+
+{% block content %}
+ <div class="col-lg-6 mt-xl-5">
+
+          <div class="card mt-xl-5">
+            <div class="card-body mt-xl-5">
+
+              <!-- Vertical Form -->
+              <form class="row g-3" method="post" action="{% url 'users:login'  %}">
+                  {% csrf_token %}
+                <div class="col-12">
+                  <label for="inputNanme4" class="form-label">Username</label>
+                  <input name="username" type="text" class="form-control" id="inputNanme4" >
+                </div>
+                <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Password</label>
+                  <input name="password" type="password" class="form-control" id="inputEmail4" v>
+                </div>
+
+                  <button type="submit" class="btn btn-primary">Login</button>
+
+
+              </form><!-- Vertical Form -->
+
+            </div>
+          </div>
+
+        </div>{% endblock %}
