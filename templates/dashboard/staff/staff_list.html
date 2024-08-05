@@ -22,7 +22,7 @@
                 {% for person in staff %}
                   <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td><a href="{% url 'dashboard:services-detail' person.id %}">{{ person.full_name }}</a></td>
+                    <td><a href="{% url 'dashboard:staff-detail' person.id %}">{{ person.full_name }}</a></td>
                     <td>{{ person.bio | truncatechars:50 }}</td>
                     <td>{{ person.speciality }}</td>
                     <td><img width="75" height="75" src="{{ person.image.url }}" alt=""></td>
