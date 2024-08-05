@@ -7,11 +7,11 @@
             <div class="card-body mt-xl-5">
 
               <!-- Vertical Form -->
-              <form enctype="multipart/form-data" class="row g-3" method="post" action="{% url 'dashboard:staff-update' %}">
+              <form enctype="multipart/form-data" class="row g-3" method="post" action="{% url 'dashboard:staff-update' staff.id %}">
                   {% csrf_token %}
                 <div class="col-12">
-                  <label for="inputNanme4" class="form-label">Nomi</label>
-                  <input name="name" type="text" class="form-control" id="inputNanme4" value="{{ staff.full_name }}">
+                  <label for="inputNanme4" class="form-label">Ismi</label>
+                  <input name="full_name" type="text" class="form-control" id="inputNanme4" value="{{ staff.full_name }}">
                 </div>
                 <div class="col-12">
                   <label for="inputEmail4" class="form-label">Ma'lumot</label>
@@ -19,11 +19,11 @@
                 </div>
                   <div class="col-12">
                   <label for="inputEmail4" class="form-label">Kasb</label>
-                    <input name="speciality" type="text" class="form-control" id="inputEmail4" value="{{ staff.speciality }}">
+                    <input name="specialty" type="text" class="form-control" id="inputEmail4" value="{{ staff.specialty }}">
                 </div>
                 <div class="col-12">
                   <label for="inputPassword4" class="form-label">Rasm</label>
-                    <img src="{{ staff.image.url }}" alt="">
+                    <img height="450" width="450" src="{{ staff.image.url }}" alt="">
                   <input name="image" type="file" class="form-control" id="inputPassword4">
                 </div>
 

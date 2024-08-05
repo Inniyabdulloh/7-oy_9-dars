@@ -189,7 +189,7 @@ class StaffUpdateView(View):
         staff = Staff.objects.get(id=id)
         staff.full_name = request.POST['full_name']
         staff.bio = request.POST['bio']
-        staff.specialty = request.FILES['specialty']
+        staff.specialty = request.POST['specialty']
         if request.FILES.get('image'):
             staff.image = request.FILES['image']
         else:
