@@ -26,7 +26,7 @@ urlpatterns = [
     path('staff/list/', StaffListView.as_view(), name='staff-list'),
     path('staff/create/', StaffCreateView.as_view(), name='staff-create'),
     path('staff/detail/<int:id>/', StaffDetailView.as_view(), name='staff-detail'),
-    path('staff/delete/<int:id>/', StaffDeleteView.as_view(), name='staff-detail'),
+    path('staff/delete/<int:id>/', StaffDeleteView.as_view(), name='staff-delete'),
     path('staff/update/<int:id>/', StaffUpdateView.as_view(), name='staff-update'),
 
 ]
