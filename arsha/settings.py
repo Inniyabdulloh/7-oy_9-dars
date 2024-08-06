@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'dashboard.apps.DashboardConfig',
+    'rest_framework',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'arsha.urls'
+
+
 
 TEMPLATES = [
     {

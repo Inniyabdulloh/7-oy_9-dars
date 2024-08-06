@@ -32,8 +32,10 @@
                         {% for _ in review.stars %}
                           <i class="bi bi-star-fill" style="color:goldenrod;"></i>
                         {% endfor %}
+                      {% if request.user.is_staff %}
                       <td><a href="{% url 'users:review-update' review.id %}"><i class="bi bi-pencil-square"></i></a></td>
                       <td><a href="{% url 'users:review-delete' review.id %}"><i class="bi bi-trash3"></i></a></td>
+                      {% endif %}
                   </tr>
                 {% endfor %}
                 </tbody>

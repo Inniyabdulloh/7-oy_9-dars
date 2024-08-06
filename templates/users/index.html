@@ -50,9 +50,10 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-            <li><a href="{% url 'users:contact-list' %}">Login</a></li>
-            {% if request.user.is_authenticated %}
-            <li><a href="{% url 'users:review-list' %}" class="active">Fikrlarim</a></li>
+            {% if not request.user.is_authenticated %}
+            <li><a href="{% url 'users:login' %}">Login</a></li>
+            {% else %}
+            <li><a href="{% url 'users:review-list' %}" class="active">Fikrlar</a></li>
             {% endif %}
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

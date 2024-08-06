@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .models import User, Review, Contact
 from dashboard.models import Services, Portfolio, Staff
+from dashboard.decorator import decorator
 # Create your views here.
 
 class HomePageView(View):
@@ -40,10 +41,7 @@ class UserLoginView(View):
 
 class ReviewListView(View):
      def get(self, request):
-         if request.user.is_staff:
-             reviews = Review.objects.all()
-         else:
-             reviews = Review.objects.filter(user=request.user)
+         reviews = Review.objects.all()
          context = {'reviews': reviews}
          return render(request, 'users/review/review_list.html', context)
 
@@ -56,10 +54,12 @@ class ReviewDetailView(View):
 
 
 class ReviewCreateView(View):
+
+    @decorator
     def get(self, request):
 
         return render(request, 'users/review/review_create.html')
-
+    @decorator
     def post(self, request):
         Review.objects.create(
             user=request.user,
@@ -69,11 +69,14 @@ class ReviewCreateView(View):
         )
         return redirect('users:review-list')
 class ReviewUpdateView(View):
+
+    @decorator
     def get(self, request, id):
         review = Review.objects.get(id=id)
         context = {'review': review}
         return render(request, 'dashboard/review/review_update.html', context)
 
+    @decorator
     def post(self, request, id):
         review = Review.objects.get(id=id)
         review.review = request.POST['review']
@@ -85,11 +88,13 @@ class ReviewUpdateView(View):
 
 
 class ReviewDeleteView(View):
-     def get(self, request, id):
-         review = Review.objects.get(id=id)
-         review.delete()
 
-         return redirect('users:review-list')
+    @decorator
+    def get(self, request, id):
+        review = Review.objects.get(id=id)
+        review.delete()
+
+        return redirect('users:review-list')
 
 
 

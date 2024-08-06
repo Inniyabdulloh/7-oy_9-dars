@@ -172,7 +172,7 @@ class PortfolioDeleteView(View, LoginRequiredMixin):
 
 
 
-class StaffListView(View):
+class StaffListView(View, LoginRequiredMixin):
 
     @decorator
     def get(self, request):
@@ -181,7 +181,7 @@ class StaffListView(View):
         return render(request, 'dashboard/staff/staff_list.html', context)
 
 
-class StaffDetailView(View):
+class StaffDetailView(View, LoginRequiredMixin):
 
     @decorator
     def get(self, request, id):
@@ -190,7 +190,7 @@ class StaffDetailView(View):
         return render(request, 'dashboard/staff/staff_detail.html', context)
 
 
-class StaffCreateView(View):
+class StaffCreateView(View, LoginRequiredMixin):
 
     @decorator
     def get(self, request):
@@ -217,7 +217,7 @@ class StaffCreateView(View):
         return redirect('dashboard:staff-list')
 
 
-class StaffUpdateView(View):
+class StaffUpdateView(View, LoginRequiredMixin):
 
     @decorator
     def get(self, request, id):
@@ -241,10 +241,107 @@ class StaffUpdateView(View):
         return redirect('dashboard:staff-detail', id=id)
 
 
-class StaffDeleteView(View):
+class StaffDeleteView(View, LoginRequiredMixin):
 
     @decorator
     def get(self, request, id):
         staff = Staff.objects.get(id=id)
         staff.delete()
         return redirect('dashboard:staff-list')
+
+
+class ReviewListView(View):
+    def get(self, request):
+        reviews = Review.objects.all()
+        context = {'reviews': reviews}
+        return render(request, 'users/review/review_list.html', context)
+
+class ReviewDetailView(View):
+    def get(self, request, id):
+        review = Review.objects.get(id=id)
+        context = {'review': review}
+        return render(request, 'users/review/review_detail.html', context)
+
+
+class ReviewCreateView(View):
+
+    @decorator
+    def get(self, request):
+
+        return render(request, 'users/review/review_create.html')
+    @decorator
+    def post(self, request):
+        Review.objects.create(
+            user=request.user,
+            speciality=request.POST['speciality'],
+            review=request.POST['review'],
+            stars_given=int(request.POST['stars']),
+        )
+        return redirect('users:review-list')
+class ReviewUpdateView(View):
+
+    @decorator
+    def get(self, request, id):
+        review = Review.objects.get(id=id)
+        context = {'review': review}
+        return render(request, 'dashboard/review/review_update.html', context)
+
+    @decorator
+    def post(self, request, id):
+        review = Review.objects.get(id=id)
+        review.review = request.POST['review']
+        review.speciality = request.POST['speciality']
+        review.stars_given = int(request.POST['stars'])
+        review.save()
+
+        return redirect('users:review-detail', id=review.id)
+
+
+class ReviewDeleteView(View):
+
+    @decorator
+    def get(self, request, id):
+        review = Review.objects.get(id=id)
+        review.delete()
+
+        return redirect('users:review-list')
+
+
+
+
+class ContactListView(View):
+    def get(self, request):
+        contacts = Contact.objects.all()
+        context = {'contacts': contacts}
+        return render(request, 'dashboard/contact/contact_list.html', context)
+
+
+class ContactDetailView(View):
+    def get(self, request, id):
+        contact = Contact.objects.get(id=id)
+        context = {'contact': contact}
+        return render(request, 'dashboard/contact/contact_detail.html', context)
+
+class ContactUpdateView(View):
+    def get(self, request, id):
+        contact = Contact.objects.get(id=id)
+        context = {'contact': contact}
+        return render(request, 'dashboard/contact/contact_update.html', context)
+
+    def post(self, request, id):
+        contact = Contact.objects.get(id=id)
+        contact.name = request.POST['name']
+        contact.email = request.POST['email']
+        contact.subject = request.POST['subject']
+        contact.message = request.POST['message']
+        contact.save()
+
+        return redirect('users:contact-detail', id=contact.id)
+
+
+class ContactDeleteView(View):
+    def get(self, request, id):
+        contact = Contact.objects.get(id=id)
+        contact.delete()
+
+        return redirect('users:contact-list')
