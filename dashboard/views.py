@@ -1,11 +1,15 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
 from .models import Services, Portfolio, Staff
 from users.models import Review, Contact
+from .decorator import decorator
 # Create your views here.
 
-class HomeView(View):
+class HomeView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request):
         contacts = Contact.objects.all().order_by('-id')
         context = {
@@ -13,10 +17,13 @@ class HomeView(View):
         }
         return render(request, 'dashboard/index.html', context)
 
-class StaffLoginView(View):
+class StaffLoginView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request):
         return render(request, 'dashboard/login.html')
 
+    @decorator
     def post(self, request):
         username = request.POST['username']
         password = request.POST['password']
@@ -28,24 +35,31 @@ class StaffLoginView(View):
 
         return redirect('dashboard:login')
 
-class ServiceListView(View):
+class ServiceListView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request):
         services = Services.objects.all()
         context = {'services': services}
         return render(request, 'dashboard/services/service_list.html', context)
 
 
-class ServiceDetailView(View):
+class ServiceDetailView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request, id):
         service = Services.objects.get(id=id)
         context = {'service': service}
         return render(request, 'dashboard/services/service_detail.html', context)
 
 
-class ServiceCreateView(View):
+class ServiceCreateView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request):
         return render(request, 'dashboard/services/service_create.html')
 
+    @decorator
     def post(self, request):
         try:
             Services.objects.create(
@@ -60,12 +74,15 @@ class ServiceCreateView(View):
         return redirect('dashboard:services-list')
 
 
-class ServiceUpdateView(View):
+class ServiceUpdateView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request, id):
         service = Services.objects.get(id=id)
         context = {'service': service}
         return render(request, 'dashboard/services/service_update.html', context)
 
+    @decorator
     def post(self, request, id):
         service = Services.objects.get(id=id)
         service.name = request.POST['name']
@@ -76,31 +93,40 @@ class ServiceUpdateView(View):
         return redirect('dashboard:services-detail', id=id)
 
 
-class ServiceDeleteView(View):
+class ServiceDeleteView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request, id):
         service = Services.objects.get(id=id)
         service.delete()
         return redirect('dashboard:services-list')
 
 
-class PortfolioListView(View):
+class PortfolioListView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request):
         portfolio = Portfolio.objects.all()
         context = {'portfolios': portfolio}
         return render(request, 'dashboard/portfolio/portfolio_list.html', context)
 
 
-class PortfolioDetailView(View):
+class PortfolioDetailView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request, id):
         portfolio = Portfolio.objects.get(id=id)
         context = {'portfolio': portfolio}
         return render(request, 'dashboard/portfolio/portfolio_detail.html', context)
 
 
-class PortfolioCreateView(View):
+class PortfolioCreateView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request):
         return render(request, 'dashboard/portfolio/portfolio_create.html')
 
+    @decorator
     def post(self, request):
         try:
             Portfolio.objects.create(
@@ -114,12 +140,15 @@ class PortfolioCreateView(View):
         return redirect('dashboard:portfolio-list')
 
 
-class PortfolioUpdateView(View):
+class PortfolioUpdateView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request, id):
         portfolio = Portfolio.objects.get(id=id)
         context = {'portfolio': portfolio}
         return render(request, 'dashboard/portfolio/portfolio_update.html', context)
 
+    @decorator
     def post(self, request, id):
         portfolio = Portfolio.objects.get(id=id)
         portfolio.name = request.POST['name']
@@ -133,7 +162,9 @@ class PortfolioUpdateView(View):
         return redirect('dashboard:portfolio-detail', id=id)
 
 
-class PortfolioDeleteView(View):
+class PortfolioDeleteView(View, LoginRequiredMixin):
+
+    @decorator
     def get(self, request, id):
         portfolio = Portfolio.objects.get(id=id)
         portfolio.delete()
@@ -142,6 +173,8 @@ class PortfolioDeleteView(View):
 
 
 class StaffListView(View):
+
+    @decorator
     def get(self, request):
         staff = Staff.objects.all()
         context = {'staff': staff}
@@ -149,6 +182,8 @@ class StaffListView(View):
 
 
 class StaffDetailView(View):
+
+    @decorator
     def get(self, request, id):
         staff = Staff.objects.get(id=id)
         context = {'staff': staff}
@@ -156,9 +191,12 @@ class StaffDetailView(View):
 
 
 class StaffCreateView(View):
+
+    @decorator
     def get(self, request):
         return render(request, 'dashboard/staff/staff_create.html')
 
+    @decorator
     def post(self, request):
         try:
             Staff.objects.create(
@@ -180,11 +218,14 @@ class StaffCreateView(View):
 
 
 class StaffUpdateView(View):
+
+    @decorator
     def get(self, request, id):
         staff = Staff.objects.get(id=id)
         context = {'staff': staff}
         return render(request, 'dashboard/staff/staff_update.html', context)
 
+    @decorator
     def post(self, request, id):
         staff = Staff.objects.get(id=id)
         staff.full_name = request.POST['full_name']
@@ -201,6 +242,8 @@ class StaffUpdateView(View):
 
 
 class StaffDeleteView(View):
+
+    @decorator
     def get(self, request, id):
         staff = Staff.objects.get(id=id)
         staff.delete()
