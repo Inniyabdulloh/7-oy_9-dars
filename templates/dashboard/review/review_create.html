@@ -7,7 +7,7 @@
             <div class="card-body mt-xl-5">
 
               <!-- Vertical Form -->
-              <form class="row g-3" method="post" action="{% url 'users:review-create' %}">
+              <form class="row g-3" method="post" action="{% url 'dashboard:review-create' %}">
                   {% csrf_token %}
                 <div class="col-12">
                   <label for="inputNanme4" class="form-label">Your Speciality</label>
@@ -24,7 +24,7 @@
 
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-danger" href="{% url 'users:review-list' %}">Cancel</a>
+                    <a class="btn btn-danger" href="{% url 'dashboard:review-list' %}">Cancel</a>
                 </div>
               </form><!-- Vertical Form -->
 

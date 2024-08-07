@@ -8,6 +8,8 @@ from users import models as user_models
 from dashboard import models as dashboard_models
 # Create your views here.
 
+
+
 class UserView(APIView):
     def get(self, request, *args, **kwargs):
         users = user_models.User.objects.get(pk=kwargs['pk'])
