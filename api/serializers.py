@@ -5,13 +5,13 @@ from users import models as user_models
 class ServiceSerializer(ModelSerializer):
     class Meta:
         model = dash_models.Services
-        fields = '__all__'
+        fields = ['name', 'description']
 
 
 class StaffSerializer(ModelSerializer):
     class Meta:
         model = dash_models.Staff
-        fields = '__all__'
+        fields = ['id','full_name', 'specialty', 'bio']
 
 
 class PortfolioSerializer(ModelSerializer):
