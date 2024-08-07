@@ -189,3 +189,39 @@ class ReviewView(APIView):
             return Response(data={'detail: Review deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
         except:
             return Response(data={'detail': 'Review does not exist'}, status=status.HTTP_400_BAD_REQUEST )
+
+
+class ContactView(APIView):
+    def get(self, request, *args, **kwargs):
+        contact = user_models.Contact.objects.all()
+        serializer = serializers.ContactSerializer(contact, many=True)
+        return Response(serializer.data)
+
+    # @is_staff
+    def post(self, request, *args, **kwargs):
+        serializer = serializers.ContactSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # @is_staff
+    def patch(self, request, *args, **kwargs):
+        try:
+            contact = user_models.Contact.objects.get(pk=kwargs['pk'])
+        except :
+            return Response(data={'detail: Contact not fouund'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = serializers.ContactSerializer(contact, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # @is_staff
+    def delete(self, request, *args, **kwargs):
+        try:
+            user_models.Contact.objects.get(pk=kwargs['pk']).delete()
+            return Response(data={'detail: Contact deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+        except:
+            return Response(data={'detail': 'Contact does not exist'}, status=status.HTTP_400_BAD_REQUEST )

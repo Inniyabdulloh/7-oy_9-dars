@@ -24,4 +24,10 @@ urlpatterns = [
     path('staff/create/', views.StaffView.as_view()),
     path('staff/<int:pk>/update/', views.StaffView.as_view()),
     path('staff/<int:pk>/delete/', views.StaffView.as_view()),
+
+    # contact
+    path('contact/list/', views.ContactView.as_view()),
+    path('contact/create/', views.ContactView.as_view()),
+    path('contact/<int:pk>/update/', views.ContactView.as_view()),
+    path('contact/<int:pk>/delete/', views.ContactView.as_view()),
 ]
